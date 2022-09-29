@@ -1,3 +1,4 @@
+from ast import Or
 import sqlite3
 from config import ORIGIN_DATA
 
@@ -23,3 +24,12 @@ def select_all():
     conn.close()
 
     return resultado
+
+def insert(registro):
+    conn = sqlite3.connect(ORIGIN_DATA)
+    cur = conn.cursor()
+    #lo siguiente es comando de sql, decimos los títulos de las columnas (Date, concept, quantity) y luego los valores (?, ?, ?) que es obligado, por último lo que tiene que ir en esas interrogaciones
+    cur.execute("INSERT INTO movements (date, concept, quantity) values (?, ?, ?);", registro)
+    conn.commit()
+
+    conn.close()
