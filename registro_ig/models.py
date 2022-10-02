@@ -33,3 +33,36 @@ def insert(registro):
     conn.commit()
 
     conn.close()
+
+def select_by(id):
+    conn = sqlite3.connect(ORIGIN_DATA)
+    cur = conn.cursor()
+    result = cur.execute("SELECT id, date, concept, quantity from movements order by date;")
+
+    filas = result.fetchall()
+    columnas = result.description
+
+    resultado = []
+    for fila in filas:
+        d = {}
+        for posicion, campo in enumerate(columnas):
+            d[campo[0]] = fila[posicion]
+        resultado.append(d)
+
+    conn.close()
+
+    for diccionario in resultado:
+        if diccionario["id"] == id:
+            return diccionario
+
+    return resultado
+
+def updated_by(registro):
+    conn = sqlite3.connect(ORIGIN_DATA)
+    cur = conn.cursor()
+    #lo siguiente es comando de sql, decimos los títulos de las columnas (Date, concept, quantity) y luego los valores (?, ?, ?) que es obligado, por último lo que tiene que ir en esas interrogaciones
+    lista = [registro[1],registro[2],registro[3],str(registro[0])]
+    cur.execute("UPDATE movements SET date=?, concept=?, quantity=? where id=?", lista)
+    conn.commit()
+
+    conn.close()

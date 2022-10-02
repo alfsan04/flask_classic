@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>
+        Modificación de ingreso-Gasto
+    </h1>
+    <article>
+        <form action="/update/{{ dicc['id'] }}" method="post">
+            {{ form.csrf_token }}
+
+            {{ form.date.label }}
+            {{ form.date(value=dicc["date"]) }}
+            {% if form.date.errors %}
+                {% for error in form.date.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+
+            {{ form.concept.label }}
+            {{ form.concept(value=dicc["concept"]) }}
+            {% if form.concept.errors %}
+                {% for error in form.concept.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+
+            {{ form.quantity.label }}
+            {{ form.quantity(value=dicc["quantity"]) }}
+            {% if form.quantity.errors %}
+                {% for error in form.quantity.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+
+            {{ form.submit }}
+        
+        </form>
+    </article>
+    
+{% endblock %}
