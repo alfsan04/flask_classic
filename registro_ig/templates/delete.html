@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>
+        Borrado de ingreso-Gasto
+    </h1>
+    <article>
+        <table>
+            <tr>
+                <th>Fecha:</th>
+                <td>{{ movement.date }}</td>
+            </tr>
+            <tr>
+                <th>Concepto:</th>
+                <td>{{ movement.concept }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad:</th>
+                <td>{{ movement.quantity }}</td>
+            </tr>
+        </table>
+        <form action="/delete/{{ movement.id }}" method="post">
+            <button>Aceptar</button>
+            <a href="/" class="return">Cancelar</a>
+        </form>
+    </article>
+    
+{% endblock %}

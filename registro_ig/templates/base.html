@@ -25,7 +25,17 @@
         </ul>
     </nav>
     <section class="container">
-       {% block content %}{% endblock %}
+        {% with messages = get_flashed_messages() %} 
+        {% if messages %}
+        <article class="messages">
+            {% for msg in messages %}
+            <p class="error">{{ msg }}</p>
+            {% endfor %}
+        </article>
+        {% endif %}
+        {% endwith %}
+    
+        {% block content %}{% endblock %}
     </section>
     
     <footer>
